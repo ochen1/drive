@@ -20,7 +20,6 @@ def reset():
     for motor in itertools.chain(*motors):
         # motor.stop()
         motor.ChangeDutyCycle(0)
-    
 
 
 def move(direction, speed):
@@ -45,3 +44,11 @@ def move(direction, speed):
             else:
                 # pin.stop()
                 pin.ChangeDutyCycle(0)
+
+
+def set_camera_angle(angle):
+    assert 0 <= angle <= 180, "Invalid angle"
+
+    camera_servo.ChangeDutyCycle(angle / 180 * 11 + 1)
+    time.sleep(0.1)
+    camera_servo.ChangeDutyCycle(0)
