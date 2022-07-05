@@ -55,7 +55,7 @@ def set_camera_angle(angle):
     assert 0 <= angle <= 180, "Invalid angle"
 
     camera_servo.ChangeDutyCycle(angle / 180 * 10 + 2)
-    time.sleep(0.1)
+    time.sleep(0.5)
     camera_servo.ChangeDutyCycle(0)
 
 
