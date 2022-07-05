@@ -7,6 +7,7 @@ GPIO.setmode(GPIO.BCM)
 CAMERA_SERVO_PIN = 18
 GPIO.setup(CAMERA_SERVO_PIN, GPIO.OUT)
 camera_servo = GPIO.PWM(CAMERA_SERVO_PIN, 50)
+camera_servo.start(0)
 
 PINS = [[17, 27, 23, 24], [5, 6, 26, 16]]
 GPIO.setup(list(itertools.chain(*PINS)), GPIO.OUT)
