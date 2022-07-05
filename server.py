@@ -17,11 +17,14 @@ for motor in motors:
         pin.start(0)
 
 
-def reset():
-    # GPIO.output(list(itertools.chain(*PINS)), GPIO.LOW)
+def stop():
     for motor in itertools.chain(*motors):
-        # motor.stop()
         motor.ChangeDutyCycle(0)
+
+
+def reset():
+    for motor in itertools.chain(*motors):
+        motor.stop()
 
 
 def move(direction, speed):
@@ -36,7 +39,7 @@ def move(direction, speed):
     assert direction in DIRECTIONS, "Invalid direction"
     assert 0 <= speed <= 100, "Invalid speed"
 
-    reset()
+    stop()
 
     for mid, motor in enumerate(motors):
         for pid, pin in enumerate(motor):
@@ -54,3 +57,9 @@ def set_camera_angle(angle):
     camera_servo.ChangeDutyCycle(angle / 180 * 10 + 2)
     time.sleep(0.1)
     camera_servo.ChangeDutyCycle(0)
+
+
+def cleanup():
+    reset()
+    camera_servo.stop()
+    GPIO.cleanup()
